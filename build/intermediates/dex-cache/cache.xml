@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\Users\Aspivina\.android\build-cache\d22becc17ed899ba03f531b08c22ff94bf67c3cf\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="da27a32db6af8954ee8061537c7d476fcb1df46f">
+        <dex dex="C:\PROGRAMAS ANDROID STUDIO\StickyNote\app\build\intermediates\pre-dexed\debug\classes_ede52cada1391e845f57ba25ca08223901b6111a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Aspivina\.android\build-cache\969a89183c807588184ea4072dec0b21f5bc0b1c\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="150252b33b00274cc868578ade018fda0d43a3eb">
+        <dex dex="C:\PROGRAMAS ANDROID STUDIO\StickyNote\app\build\intermediates\pre-dexed\debug\classes_1aaff55c1fa890e7acedd8808bd77a31b85c2c8e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Aspivina\.android\build-cache\6db43624275ba0d3b290fae442531fc18ee441af\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6ef31f1555bb4cc513ec8d52711365a8b89f3600">
+        <dex dex="C:\PROGRAMAS ANDROID STUDIO\StickyNote\app\build\intermediates\pre-dexed\debug\classes_c7f5ef8111c3cdf9413ff5239acdef7416054273.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Aspivina\.android\build-cache\dea73582312712af44bd8fcd6a337c07e2de9704\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="47635644d0d5c103c1dd8360549eb9ba3225c7d3">
+        <dex dex="C:\PROGRAMAS ANDROID STUDIO\StickyNote\app\build\intermediates\pre-dexed\debug\classes_51895af5b376e3df3694bf274def0a3a274bc474.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Aspivina\.android\build-cache\26c57f9a3fc53bd29fa3d69dafea05b3520d7cfb\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="45f697922e6f072daa12f8a2995dc77ab03c11da">
+        <dex dex="C:\PROGRAMAS ANDROID STUDIO\StickyNote\app\build\intermediates\pre-dexed\debug\classes_2c0b2cb5d2ef719dc993420f5243c41a77d3c49a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Aspivina\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\25.3.1\support-annotations-25.3.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="bf8841d29fa39e077730e7a91222c2ce269fa7c9">
+        <dex dex="C:\PROGRAMAS ANDROID STUDIO\StickyNote\app\build\intermediates\pre-dexed\debug\support-annotations-25.3.1_a2e328c170fb0eaed8c173178d69ab711d0f7624.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Aspivina\.android\build-cache\2a4267815dc052731371a6d1c7fa3664e27c757b\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="efb8cb62d47d157c29d1521daac7eefd4cb881ee">
+        <dex dex="C:\PROGRAMAS ANDROID STUDIO\StickyNote\app\build\intermediates\pre-dexed\debug\classes_28fd1a6b4a876c0f328fedac7a5eade1c9a994c3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Aspivina\.android\build-cache\eb3ba232816f73b981ac19243b2c63497d69e6e4\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="052f5f840f21174a3ecf6544130194e2652cbb73">
+        <dex dex="C:\PROGRAMAS ANDROID STUDIO\StickyNote\app\build\intermediates\pre-dexed\debug\classes_0c204829f9556de99908d4460973488453f7bc36.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Aspivina\.android\build-cache\63f7a2a315a9d6d202114f4931453169647e2819\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\PROGRAMAS ANDROID STUDIO\StickyNote\app\build\intermediates\pre-dexed\debug\classes_2fb6021cd5db8e5f31115ba9a95f7f7542a65bdb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Aspivina\.android\build-cache\7286710d79b8a8f379dd5b58d36df14ca7397571\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="4a26a1154d053ab11aaf4c3967c42a4d66390991">
+        <dex dex="C:\PROGRAMAS ANDROID STUDIO\StickyNote\app\build\intermediates\pre-dexed\debug\classes_57c141e56d8dd375466ea6cbfaf64abad2a5b3aa.jar" />
+    </item>
+
+</items>
