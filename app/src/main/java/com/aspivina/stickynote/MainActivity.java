@@ -1,5 +1,6 @@
 package com.aspivina.stickynote;
 
+import android.content.Intent;
 import android.nfc.Tag;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
@@ -7,6 +8,9 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -20,7 +24,9 @@ public class MainActivity extends AppCompatActivity {
 
     /* A constant to save and restore the current note that is being displayed*/
     private static final String CURRENT_NOTE_EXTRA = "current note";
-    private TextView current_note_label;
+    private TextView current_note_title;
+    private TextView current_note_body;
+
     private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
@@ -35,9 +41,15 @@ public class MainActivity extends AppCompatActivity {
         save_note_function();
         Log.d(TAG, "onStop: it stops");
         read_note_function();
-
     }
-/********************************SAVE NOTE FUNCTION***********************************/
+
+    @Override
+    protected void onResume()
+    { super.onResume();
+        Log.d(TAG, "onStop: it resumes");
+    }
+
+    /********************************SAVE NOTE FUNCTION***********************************/
     public void save_note_function(){
         String string = "Hello world! TESTING";
         String filename = "current_note.txt";
@@ -61,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
 /********************************READ NOTE FUNCTION***********************************/
     public void read_note_function() {
-        current_note_label = (TextView) findViewById(R.id.tv_current_note);
+        current_note_title = (TextView) findViewById(R.id.tv_current_note);
         //reading text from file
         FileInputStream fileIn;
         try {
@@ -76,9 +88,31 @@ public class MainActivity extends AppCompatActivity {
                 s +=readstring;
             }
             InputRead.close();
-            current_note_label.setText(s);
+            current_note_title.setText(s);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        /* Use AppCompatActivity's method getMenuInflater to get a handle on the menu inflater */
+        MenuInflater inflater = getMenuInflater();
+        /* Use the inflater's inflate method to inflate our menu layout to this menu */
+        inflater.inflate(R.menu.main_menu, menu);
+        /* Return true so that the menu is displayed in the Toolbar */
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        current_note_body = (TextView) findViewById(R.id.tv_current_note);
+        int id = item.getItemId();
+        if (id == R.id.action_edit_note) {
+            Intent start_edit_note = new Intent(this, edit_note.class);
+            start_edit_note.putExtra(Intent.EXTRA_TEXT,current_note_body.getText().toString());
+            startActivity(start_edit_note);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }//Main Activity
