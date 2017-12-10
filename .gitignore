@@ -59,9 +59,12 @@ fabric.properties
 # Built application files
 *.apk
 *.ap_
-<<<<<<< HEAD
-=======
 
->>>>>>> f9c96576f119d7187bb05adb4a9cce7920161108
 ### Get rid of gradle stuff
-.gradle/3.3
+.gradle/3.3/
+
+###
+build/android-profile/
+.idea/misc.xml
+app/app.iml
+local.properties
