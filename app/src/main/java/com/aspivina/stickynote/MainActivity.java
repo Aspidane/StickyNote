@@ -1,10 +1,12 @@
 package com.aspivina.stickynote;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.nfc.Tag;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //edit_note_fragment edit_note=new edit_note_fragment();
-        //note_list_fragment note_list=new note_list_fragment();
+        //edit_note_fragment_layout edit_note=new edit_note_fragment_layout();
+        //note_list_fragment_layout note_list=new note_list_fragment_layout();
         setContentView(R.layout.activity_main);
     }
 
@@ -109,12 +111,21 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         current_note_body = (TextView) findViewById(R.id.tv_current_note);
         int id = item.getItemId();
-        if (id == R.id.action_edit_note) {
-            Intent start_edit_note = new Intent(this, edit_note.class);
-            start_edit_note.putExtra(Intent.EXTRA_TEXT,current_note_body.getText().toString());
-            startActivity(start_edit_note);
+        //TOOLBAR
+        if (id == R.id.action_about) {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            dialog.setTitle("About");
+            dialog.setMessage("Hello! We are AspiDane. If you liked this or if you find any bugs, please feel free to email us at aspidane@gmail.com");
+            dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            dialog.show();
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 

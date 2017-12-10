@@ -13,7 +13,7 @@ public class edit_note extends AppCompatActivity {
     private EditText edit_note_box;
     private String temp_text;
 
-
+/*
     @Override
     protected void onCreate (Bundle bundle){
         super.onCreate(bundle);
@@ -29,6 +29,6 @@ public class edit_note extends AppCompatActivity {
         }
 
     }// onCreate
-
+*/
     //must to create a custom menu for go_editing that include Save / Cancel / ? options
 }
