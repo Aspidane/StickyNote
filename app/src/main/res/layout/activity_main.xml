@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.aspivina.stickynote.MainActivity"
+    android:orientation="vertical"
     android:id="@+id/main_fragment">
 
     <TextView
@@ -22,4 +23,19 @@
         android:text="@string/empty_note"
         android:paddingTop="16dp"
         />
-</FrameLayout>
+
+    <fragment android:name="com.aspivina.stickynote.edit_note_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/R.id.current_note"
+        android:layout_weight="1"
+        />
+
+    <fragment android:name="com.aspivina.stickynote.note_list_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/R.id.note_list"
+        android:layout_weight="2"
+
+        />
+</LinearLayout>
