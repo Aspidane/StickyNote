@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     tools:context="com.aspivina.stickynote.MainActivity"
     android:orientation="vertical"
-    android:id="@+id/main_fragment">
+    android:id="@+id/main_fragment"
+    android:background="#00ffffff">
 
 
 

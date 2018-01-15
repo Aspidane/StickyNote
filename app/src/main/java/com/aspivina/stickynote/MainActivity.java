@@ -1,5 +1,6 @@
 package com.aspivina.stickynote;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.nfc.Tag;
@@ -14,20 +15,25 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
-
-
     /* A constant to save and restore the current note that is being displayed*/
     private static final String CURRENT_NOTE_EXTRA = "current note";
     private TextView current_note_title;
     private TextView current_note_body;
+    private EditText input_note;
+    private Button my_save_button;
+    private ImageView my_save_image;
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -35,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //edit_note_fragment_layout edit_note=new edit_note_fragment_layout();
-        //note_list_fragment_layout note_list=new note_list_fragment_layout();
         setContentView(R.layout.activity_main);
     }
 
@@ -51,12 +55,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume()
     { super.onResume();
-        Log.d(TAG, "onStop: it resumes");
+        Log.d(TAG, "onResume: it resumes");
+    }
+
+    @Override
+    protected void onStart()
+    { super.onStart();
+        Log.d(TAG, "onStart: it starts");
+        read_note_function();
     }
 
     /********************************SAVE NOTE FUNCTION***********************************/
     public void save_note_function(){
-        String string = "Hello world! TESTING";
+        current_note_body = (TextView) findViewById(R.id.tv_current_note);
+        input_note = (EditText) findViewById(R.id.et_edit_note);
+        my_save_image = (ImageView) findViewById(R.id.im_ok);
+
+
+        String string = input_note.getText().toString();
         String filename = "current_note.txt";
         FileOutputStream outputStream;
         try {
@@ -69,19 +85,14 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-/********************************SAVING DATA FUNCTION*********************************/
-    public void saving_data_function(){
-        String string = "New text - testing";
-        Bundle current_note_bundle = new Bundle();
-        current_note_bundle.putString(CURRENT_NOTE_EXTRA, string.toString());
-    }
-
 /********************************READ NOTE FUNCTION***********************************/
     public void read_note_function() {
-        current_note_title = (TextView) findViewById(R.id.tv_current_note);
+        current_note_body = (TextView) findViewById(R.id.tv_current_note);
         //reading text from file
         FileInputStream fileIn;
         try {
+            Log.d(TAG, "onReading: it reads");
+
             fileIn = openFileInput("current_note.txt");
             InputStreamReader InputRead= new InputStreamReader(fileIn);
             char[] inputBuffer= new char[100];
@@ -93,11 +104,12 @@ public class MainActivity extends AppCompatActivity {
                 s +=readstring;
             }
             InputRead.close();
-            current_note_title.setText(s);
+            current_note_body.setText(s);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+/********************************onCreateOptionsMenu***********************************/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         /* Use AppCompatActivity's method getMenuInflater to get a handle on the menu inflater */
@@ -107,9 +119,10 @@ public class MainActivity extends AppCompatActivity {
         /* Return true so that the menu is displayed in the Toolbar */
         return true;
     }
+/********************************onOptionsItemSelected***********************************/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        current_note_body = (TextView) findViewById(R.id.tv_current_note);
+
         int id = item.getItemId();
         //TOOLBAR
         if (id == R.id.action_about) {
@@ -125,8 +138,43 @@ public class MainActivity extends AppCompatActivity {
             dialog.show();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
+/********************************test_click_view***********************************/
+    public void test_click_view(View v){
+          current_note_body = (TextView) findViewById(R.id.tv_current_note);
+          input_note = (EditText) findViewById(R.id.et_edit_note);
+          my_save_image = (ImageView) findViewById(R.id.im_ok);
 
+        Log.d(TAG,"test_click_view: it clicks");
+
+        Context context = getApplicationContext();
+        CharSequence text = "clicked";
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+        current_note_body.setVisibility(View.INVISIBLE);
+        input_note.setVisibility(View.VISIBLE);
+        my_save_image.setVisibility(View.VISIBLE);
+        input_note.setText(current_note_body.getText().toString());
+    }
+/********************************save_click_button***********************************/
+    public void save_click_button (View v){
+        current_note_body = (TextView) findViewById(R.id.tv_current_note);
+        input_note = (EditText) findViewById(R.id.et_edit_note);
+        my_save_image = (ImageView) findViewById(R.id.im_ok);
+
+
+        Context context = getApplicationContext();
+        CharSequence text = "saved";
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+        current_note_body.setVisibility(View.VISIBLE);
+        input_note.setVisibility(View.INVISIBLE);
+        my_save_image.setVisibility(View.INVISIBLE);
+        current_note_body.setText(input_note.getText().toString());
+
+    }
+/******************************** nothing ***********************************/
 }//Main Activity
