@@ -69,12 +69,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/empty_note"
-            android:paddingTop="16dp"
+            android:paddingTop="24dp"
             android:onClick="test_click_view"
             android:clickable="true"
             android:textSize="18dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginRight="24dp"
             />
 
         <EditText
@@ -82,9 +82,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/et_edit_note"
             android:visibility="invisible"
-            android:textSize="18dp"
+            android:paddingTop="16dp"
+            android:textSize="24dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginRight="24dp"
 
             />
 
