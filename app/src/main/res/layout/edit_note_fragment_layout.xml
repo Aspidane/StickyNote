@@ -14,7 +14,9 @@
             android:id="@+id/tv_title_note"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
-            android:text="@string/new_note" />
+            android:text="@string/new_note"
+            android:layout_marginLeft="16dp"
+            />
 
     </RelativeLayout>
 
@@ -27,31 +29,6 @@
         android:layout_height="144dp"
         android:background="@drawable/note_edit_background"
         >
-        <ImageView
-            android:id="@+id/im_pin"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:src="@drawable/pin_t"
-            android:layout_centerHorizontal="true"
-            android:layout_alignTop="@+id/tv_current_note"
-            />
-        <ImageView
-            android:id="@+id/im_edit"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:src="@drawable/edit_t"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/tv_current_note"
-            />
-
-        <ImageView
-            android:id="@+id/im_delete"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:src="@drawable/delete_t"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-        />
 
         <ImageView
             android:id="@+id/im_ok"
@@ -59,22 +36,47 @@
             android:layout_height="26dp"
             android:src="@drawable/save_t"
             android:layout_alignParentRight="true"
-            android:layout_alignBottom="@+id/tv_current_note"
+            android:layout_alignTop="@+id/tv_current_note"
             android:onClick="save_click_button"
             android:clickable="true"
             android:visibility="invisible"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="5dp"
+            />
+        <ImageView
+            android:id="@+id/im_edit"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/edit_t"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@+id/tv_current_note"
+            android:onClick="test_click_view"
+            android:clickable="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="5dp"
+
+            />
+
+        <ImageView
+            android:id="@+id/im_delete"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/delete_t"
+            android:layout_centerHorizontal="true"
+            android:layout_alignTop="@+id/tv_current_note"
+
+            android:layout_marginTop="5dp"
         />
+
         <TextView
             android:id="@+id/tv_current_note"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/empty_note"
-            android:paddingTop="24dp"
-            android:onClick="test_click_view"
-            android:clickable="true"
+            android:paddingTop="32dp"
             android:textSize="18dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="24dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
             />
 
         <EditText
@@ -82,12 +84,11 @@
             android:layout_height="wrap_content"
             android:id="@+id/et_edit_note"
             android:visibility="invisible"
-            android:paddingTop="16dp"
-            android:textSize="24dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="24dp"
-
-            />
+            android:layout_marginTop="22dp"
+            android:textSize="18dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+                        />
 
     </RelativeLayout>
 
