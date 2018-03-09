@@ -15,6 +15,9 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
