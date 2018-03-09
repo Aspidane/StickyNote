@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText input_note;
     private Button my_save_button;
     private ImageView my_save_image;
+    private ImageView my_edit_image;
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        Log.d(TAG, "onCreate: it creates");
+        read_note_function();
     }
 
     @Override
@@ -49,6 +52,13 @@ public class MainActivity extends AppCompatActivity {
     { super.onStop();
         save_note_function();
         Log.d(TAG, "onStop: it stops");
+        read_note_function();
+    }
+    @Override
+    protected void onDestroy()
+    { super.onDestroy();
+        save_note_function();
+        Log.d(TAG, "onDestroy: it destroys");
         read_note_function();
     }
 
@@ -140,13 +150,14 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-/********************************test_click_view***********************************/
-    public void test_click_view(View v){
-          current_note_body = (TextView) findViewById(R.id.tv_current_note);
-          input_note = (EditText) findViewById(R.id.et_edit_note);
-          my_save_image = (ImageView) findViewById(R.id.im_ok);
+/********************************edit_click_view***********************************/
+    public void edit_click_view(View v){
+        current_note_body = (TextView) findViewById(R.id.tv_current_note);
+        input_note = (EditText) findViewById(R.id.et_edit_note);
+        my_save_image = (ImageView) findViewById(R.id.im_ok);
+        my_edit_image = (ImageView) findViewById(R.id.im_edit);
 
-        Log.d(TAG,"test_click_view: it clicks");
+        Log.d(TAG,"edit_click_view: it clicks");
 
         Context context = getApplicationContext();
         CharSequence text = "clicked";
@@ -156,6 +167,8 @@ public class MainActivity extends AppCompatActivity {
         current_note_body.setVisibility(View.INVISIBLE);
         input_note.setVisibility(View.VISIBLE);
         my_save_image.setVisibility(View.VISIBLE);
+        my_edit_image.setVisibility(View.INVISIBLE);
+
         input_note.setText(current_note_body.getText().toString());
     }
 /********************************save_click_button***********************************/
@@ -163,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
         current_note_body = (TextView) findViewById(R.id.tv_current_note);
         input_note = (EditText) findViewById(R.id.et_edit_note);
         my_save_image = (ImageView) findViewById(R.id.im_ok);
-
+        my_edit_image = (ImageView) findViewById(R.id.im_edit);
 
         Context context = getApplicationContext();
         CharSequence text = "saved";
@@ -173,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
         current_note_body.setVisibility(View.VISIBLE);
         input_note.setVisibility(View.INVISIBLE);
         my_save_image.setVisibility(View.INVISIBLE);
+        my_edit_image.setVisibility(View.VISIBLE);
         current_note_body.setText(input_note.getText().toString());
 
     }

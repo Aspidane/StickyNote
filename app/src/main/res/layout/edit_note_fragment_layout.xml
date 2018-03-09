@@ -50,7 +50,7 @@
             android:src="@drawable/edit_t"
             android:layout_alignParentLeft="true"
             android:layout_alignTop="@+id/tv_current_note"
-            android:onClick="test_click_view"
+            android:onClick="edit_click_view"
             android:clickable="true"
             android:layout_marginLeft="12dp"
             android:layout_marginTop="5dp"
