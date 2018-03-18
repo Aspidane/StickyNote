@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private Button my_save_button;
     private ImageView my_save_image;
     private ImageView my_edit_image;
+    private ImageView my_delete_image;
+    private Boolean my_toggle;
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate: it creates");
         read_note_function();
+        my_toggle = false;
     }
 
     @Override
@@ -79,8 +82,6 @@ public class MainActivity extends AppCompatActivity {
     public void save_note_function(){
         current_note_body = (TextView) findViewById(R.id.tv_current_note);
         input_note = (EditText) findViewById(R.id.et_edit_note);
-        my_save_image = (ImageView) findViewById(R.id.im_ok);
-
 
         String string = input_note.getText().toString();
         String filename = "current_note.txt";
@@ -150,45 +151,41 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-/********************************edit_click_view***********************************/
-    public void edit_click_view(View v){
-        current_note_body = (TextView) findViewById(R.id.tv_current_note);
-        input_note = (EditText) findViewById(R.id.et_edit_note);
-        my_save_image = (ImageView) findViewById(R.id.im_ok);
-        my_edit_image = (ImageView) findViewById(R.id.im_edit);
 
-        Log.d(TAG,"edit_click_view: it clicks");
+/******************************** edit_save_click_button ***********************************/
+public void edit_save_click_button (View v){
+    current_note_body = (TextView) findViewById(R.id.tv_current_note);
+    input_note = (EditText) findViewById(R.id.et_edit_note);
 
-        Context context = getApplicationContext();
-        CharSequence text = "clicked";
+    my_delete_image = (ImageView) findViewById(R.id.im_edit_save);
+
+    Context context = getApplicationContext();
+    if (false == my_toggle) {
+        Log.d(TAG,"edit_click_view: it clicks for editing");
+        CharSequence text = "editing";
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
         current_note_body.setVisibility(View.INVISIBLE);
         input_note.setVisibility(View.VISIBLE);
-        my_save_image.setVisibility(View.VISIBLE);
-        my_edit_image.setVisibility(View.INVISIBLE);
+
+        my_delete_image.setImageResource(R.drawable.save_t);
 
         input_note.setText(current_note_body.getText().toString());
-    }
-/********************************save_click_button***********************************/
-    public void save_click_button (View v){
-        current_note_body = (TextView) findViewById(R.id.tv_current_note);
-        input_note = (EditText) findViewById(R.id.et_edit_note);
-        my_save_image = (ImageView) findViewById(R.id.im_ok);
-        my_edit_image = (ImageView) findViewById(R.id.im_edit);
-
-        Context context = getApplicationContext();
+        my_toggle = true;
+    }else{
+        Log.d(TAG,"edit_click_view: it clicks for saving");
         CharSequence text = "saved";
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
         current_note_body.setVisibility(View.VISIBLE);
         input_note.setVisibility(View.INVISIBLE);
-        my_save_image.setVisibility(View.INVISIBLE);
-        my_edit_image.setVisibility(View.VISIBLE);
-        current_note_body.setText(input_note.getText().toString());
 
+        my_delete_image.setImageResource(R.drawable.edit_t);
+
+        current_note_body.setText(input_note.getText().toString());
+        my_toggle = false;
     }
-/******************************** nothing ***********************************/
+}
 }//Main Activity
