@@ -31,41 +31,27 @@
         >
 
         <ImageView
-            android:id="@+id/im_ok"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:src="@drawable/save_t"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/tv_current_note"
-            android:onClick="save_click_button"
-            android:clickable="true"
-            android:visibility="invisible"
-            android:layout_marginRight="12dp"
-            android:layout_marginTop="5dp"
-            />
-        <ImageView
-            android:id="@+id/im_edit"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:src="@drawable/edit_t"
-            android:layout_alignParentLeft="true"
-            android:layout_alignTop="@+id/tv_current_note"
-            android:onClick="edit_click_view"
-            android:clickable="true"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="5dp"
-
-            />
-
-        <ImageView
-            android:id="@+id/im_delete"
+            android:id="@+id/im_color"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:src="@drawable/delete_t"
-            android:layout_centerHorizontal="true"
+            android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/tv_current_note"
-
+            android:layout_marginRight="48dp"
             android:layout_marginTop="5dp"
+            />
+
+        <ImageView
+            android:id="@+id/im_edit_save"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/edit_t"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/tv_current_note"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="5dp"
+            android:onClick="edit_save_click_button"
+            android:clickable="true"
         />
 
         <TextView
