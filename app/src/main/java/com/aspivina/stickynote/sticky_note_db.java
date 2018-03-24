@@ -98,6 +98,16 @@ public class sticky_note_db extends SQLiteOpenHelper {
         return notes;
     }
 
+    //Wrapper for the other get_note function below; uses and int instead of a string
+	public JSONObject get_note(int id){
+
+    	//Make a string version of the id
+    	String new_id=Integer.toString(id);
+
+    	//Call the below function
+    	return get_note(new_id);
+	}
+
 	//Gets a specific note using its ID
 	public JSONObject get_note(String id){
     	JSONObject note=new JSONObject();
