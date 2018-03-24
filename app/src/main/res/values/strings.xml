@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">StickyNote</string>
-    <string name="new_note">New note</string>
-    <string name="edit_note">Edit Note</string>
+    <string name="new_note">.</string>
+<!--    <string name="edit_note">Edit Note</string> -->
+    <string name="tool_bar_help">Help!</string>
+    <string name="tool_bar_about">About</string>
+
     <string name="empty_note">Fill me!</string>
 
 </resources>
