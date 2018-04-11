@@ -22,8 +22,8 @@ import java.util.ArrayList;
 public class sticky_note_db extends SQLiteOpenHelper {
 
     //Variables for the database's name and version number
-    private static String database_name="sticky_note_db";
-    private static int database_version=1;
+    //private static String database_name="sticky_note_db";
+    //private static int database_version=1;
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -183,13 +183,102 @@ public class sticky_note_db extends SQLiteOpenHelper {
 
 	//Function to insert data into the DB
 	//Returns the new ID or -1 if there is an error
-    public long insert(SQLiteDatabase db, ContentValues values){
+    private long insert(SQLiteDatabase db, ContentValues values){
     	//Try to insert it; if values is null, do nothing.
 		//Return the result (the new ID or -1)
         return db.insert(database_constants_contract.constants.TABLE_NAME, null, values);
     }
 
-	//TODO: delete_note, update_note
+	//Delete function; this deletes a note with the given ID
+	//Note, this is not a wrapper, it is not needed for deletion
+	public long delete_note(int id){
+
+		//Get the database
+		SQLiteDatabase db=this.getWritableDatabase();
+
+		//The query part; the "?" represents arguments I think
+		String query = database_constants_contract.constants._ID+" LIKE ?";
+
+		//The id to delete formatted for the delete function
+		String[] query_argument={Integer.toString(id)};
+
+
+
+		//Calls the delete function and returns how many rows were deleted
+		return db.delete(database_constants_contract.constants.TABLE_NAME, query, query_argument);
+	}
+
+	//Wrapper for updating notes; it takes a JSON object and then processes it and calls the update function
+	public long update_note(JSONObject object){
+
+		//Get the database
+		SQLiteDatabase db=this.getWritableDatabase();
+
+		//Initialize the ContentValues
+		ContentValues values=new ContentValues();
+
+		try {
+
+			//Get the data from the JSON
+
+			//Initialize the id to -1; this will be overwritten later
+			int id=-1;
+
+			//Ensure it has an id
+			if(object.has("id")){
+				String idString = object.has("id") ? object.getString("id") : "-1"; //Return -1 if not found
+				id=Integer.parseInt(idString);
+
+				//If it does not, there is an error
+			} else {
+				Log.d("\n\nERROR: ","id was not found. Abandoning operation.\n\n");
+				return -1; //And return -1 to indicate an error was given
+			}
+
+			//If the title is being updated
+			if(object.has("title")){
+				//Add the new title to the list
+				values.put("title", object.getString("title"));
+			}
+
+			//Repeat for contents
+			if(object.has("contents")){
+				values.put("contents", object.getString("contents"));
+			}
+
+			//Repeat for creation_time
+			if(object.has("creation_time")){
+				values.put("creation_time", object.getString("creation_time"));
+			}
+
+			//Repeat for last_modified
+			if(object.has("last_modified")){
+				values.put("last_modified", object.getString("last_modified"));
+			}
+
+			//The query part; the "?" represents arguments I think
+			String query = database_constants_contract.constants._ID+" LIKE ?";
+
+			//The id to delete formatted for the delete function
+			String[] query_argument={Integer.toString(id)};
+
+			//Do the update
+			return update(db, values, query, query_argument);
+
+		} catch (JSONException error){
+			Log.d("\n\nERROR: ", "update_note when reading cursor: "+error.getMessage()+"\n\n");
+			return -1;
+		}
+
+	}
+
+	//Function to insert data into the DB
+	//Returns the new ID or -1 if there is an error
+	private long update(SQLiteDatabase db, ContentValues values, String query, String[] query_arguments){
+		//Try to do the update
+		//Return the result (the number of rows updated)
+		return db.update(database_constants_contract.constants.TABLE_NAME, values, query, query_arguments);
+	}
 
     //Returns
     public sticky_note_db(Context context){
