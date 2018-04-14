@@ -138,11 +138,20 @@ public class sticky_note_db extends SQLiteOpenHelper {
 		cursor.moveToNext();
 
 		try {
-			note.put("id", cursor.getColumnIndex(database_constants_contract.constants._ID));
-			note.put("title", cursor.getColumnIndex(database_constants_contract.constants.TITLE_COLUMN));
-			note.put("contents", cursor.getColumnIndex(database_constants_contract.constants.CONTENTS_COLUMN));
-			note.put("creation_time", cursor.getColumnIndex(database_constants_contract.constants.CREATION_TIME_COLUMN));
-			note.put("last_modified", cursor.getColumnIndex(database_constants_contract.constants.LAST_MODIFIED_COLUMN));
+
+			//Get the position of all the columns
+			int id_column=cursor.getColumnIndex(database_constants_contract.constants._ID);
+			int title_column=cursor.getColumnIndex(database_constants_contract.constants.TITLE_COLUMN);
+			int contents_column=cursor.getColumnIndex(database_constants_contract.constants.CONTENTS_COLUMN);
+			int creation_time_column=cursor.getColumnIndex(database_constants_contract.constants.CREATION_TIME_COLUMN);
+			int last_modified_column=cursor.getColumnIndex(database_constants_contract.constants.LAST_MODIFIED_COLUMN);
+
+			//Get the actual value of each column
+			note.put("id", cursor.getInt(id_column));
+			note.put("title", cursor.getString(title_column));
+			note.put("contents", cursor.getString(contents_column));
+			note.put("creation_time", cursor.getString(creation_time_column));
+			note.put("last_modified", cursor.getString(last_modified_column));
 
 		} catch (JSONException error){
 			Log.d("\n\nERROR: ", "get_note when reading cursor: "+error.getMessage()+"\n\n");
