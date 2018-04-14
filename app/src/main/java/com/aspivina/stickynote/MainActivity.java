@@ -191,4 +191,17 @@ public void edit_save_click_button (View v){
         my_toggle = false;
     }
 }
+    /******************************** DB Related Functions ***********************************/
+    /******************************** DB Save Note Function ***********************************/
+
+    public void db_save_note_function(){
+        current_note_body = (TextView) findViewById(R.id.tv_current_note);
+        input_note = (EditText) findViewById(R.id.et_edit_note);
+
+        String string = input_note.getText().toString();
+        String filename = "current_note.txt";
+
+        Log.d(TAG, "onWriting: it writes");
+
+    }
 }//Main Activity
