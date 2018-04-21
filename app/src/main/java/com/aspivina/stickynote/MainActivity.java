@@ -25,9 +25,17 @@ import android.widget.Toast;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     /* A constant to save and restore the current note that is being displayed*/
@@ -40,19 +48,25 @@ public class MainActivity extends AppCompatActivity {
     private ImageView my_edit_image;
     private ImageView my_delete_image;
     private Boolean my_toggle;
-
+    private JSONArray all_notes;
+    private sticky_note_db my_db;
+    private JSONObject current_note_json;
+    private TextView current_id;
     private static final String TAG = MainActivity.class.getSimpleName();
 
+    /******************************** OnCreate Function ***********************************/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate: it creates");
         read_note_function();
         my_toggle = false;
+        my_db = new sticky_note_db(this);
+        all_notes = my_db.get_all_notes();
+        Log.d(TAG, all_notes.toString());
     }
-
+    /******************************** OnStop Function ***********************************/
     @Override
     protected void onStop()
     { super.onStop();
@@ -60,38 +74,37 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onStop: it stops");
         read_note_function();
     }
+    /******************************** OnDestroy Function ***********************************/
     @Override
     protected void onDestroy()
     { super.onDestroy();
         save_note_function();
         Log.d(TAG, "onDestroy: it destroys");
-        read_note_function();
+        my_db.close();
     }
-
+    /******************************** OnResume Function ***********************************/
     @Override
     protected void onResume()
     { super.onResume();
         Log.d(TAG, "onResume: it resumes");
+        read_note_function();
     }
-
+    /******************************** OnStart Function ***********************************/
     @Override
     protected void onStart()
     { super.onStart();
         Log.d(TAG, "onStart: it starts");
         read_note_function();
     }
-
     /********************************SAVE NOTE FUNCTION***********************************/
     public void save_note_function(){
         current_note_body = (TextView) findViewById(R.id.tv_current_note);
         input_note = (EditText) findViewById(R.id.et_edit_note);
-
         String string = input_note.getText().toString();
         String filename = "current_note.txt";
         FileOutputStream outputStream;
         try {
             Log.d(TAG, "onWriting: it writes");
-
             outputStream = openFileOutput(filename, this.MODE_PRIVATE);
             outputStream.write(string.getBytes());
             outputStream.close();
@@ -106,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
         FileInputStream fileIn;
         try {
             Log.d(TAG, "onReading: it reads");
-
             fileIn = openFileInput("current_note.txt");
             InputStreamReader InputRead= new InputStreamReader(fileIn);
             char[] inputBuffer= new char[100];
@@ -136,7 +148,6 @@ public class MainActivity extends AppCompatActivity {
 /********************************onOptionsItemSelected***********************************/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
         //TOOLBAR
         if (id == R.id.action_about) {
@@ -154,54 +165,107 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-/******************************** edit_save_click_button ***********************************/
-public void edit_save_click_button (View v){
-    current_note_body = (TextView) findViewById(R.id.tv_current_note);
-    input_note = (EditText) findViewById(R.id.et_edit_note);
-
-    my_delete_image = (ImageView) findViewById(R.id.im_edit_save);
-
-    Context context = getApplicationContext();
-    if (false == my_toggle) {
-        Log.d(TAG,"edit_click_view: it clicks for editing");
-        CharSequence text = "editing";
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-        current_note_body.setVisibility(View.INVISIBLE);
-        input_note.setVisibility(View.VISIBLE);
-
-        my_delete_image.setImageResource(R.drawable.save_t);
-
-        input_note.setText(current_note_body.getText().toString());
-        my_toggle = true;
-    }else{
-        Log.d(TAG,"edit_click_view: it clicks for saving");
-        CharSequence text = "saved";
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-        current_note_body.setVisibility(View.VISIBLE);
-        input_note.setVisibility(View.INVISIBLE);
-
-        my_delete_image.setImageResource(R.drawable.edit_t);
-
-        current_note_body.setText(input_note.getText().toString());
-        my_toggle = false;
+    /******************************** edit_save_click_button ***********************************/
+    public void edit_save_click_button (View v){
+        current_note_body = (TextView) findViewById(R.id.tv_current_note);
+        input_note = (EditText) findViewById(R.id.et_edit_note);
+        my_delete_image = (ImageView) findViewById(R.id.im_edit_save);
+        Context context = getApplicationContext();
+        if (false == my_toggle) {
+            Log.d(TAG,"edit_click_view: it clicks for editing");
+            CharSequence text = "editing";
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+            current_note_body.setVisibility(View.INVISIBLE);
+            input_note.setVisibility(View.VISIBLE);
+            my_delete_image.setImageResource(R.drawable.save_t);
+            input_note.setText(current_note_body.getText().toString());
+            my_toggle = true;
+        }else{
+            Log.d(TAG,"edit_click_view: it clicks for saving");
+            CharSequence text = "saved";
+            db_save_note_function();
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+            current_note_body.setVisibility(View.VISIBLE);
+            input_note.setVisibility(View.INVISIBLE);
+            my_delete_image.setImageResource(R.drawable.edit_t);
+            current_note_body.setText(input_note.getText().toString());
+            my_toggle = false;
+        }
     }
-}
     /******************************** DB Related Functions ***********************************/
     /******************************** DB Save Note Function ***********************************/
-
     public void db_save_note_function(){
         current_note_body = (TextView) findViewById(R.id.tv_current_note);
         input_note = (EditText) findViewById(R.id.et_edit_note);
+        JSONObject note = new JSONObject();
+        JSONObject old_note = new JSONObject();
 
-        String string = input_note.getText().toString();
-        String filename = "current_note.txt";
+        my_db = new sticky_note_db(this);
+        String note_body = input_note.getText().toString();
+        current_id = (TextView) findViewById(R.id.tv_id_note);
+        String t_id = current_id.getText().toString();
 
-        Log.d(TAG, "onWriting: it writes");
+        Date date = Calendar.getInstance().getTime();
+        DateFormat date_formatter = new SimpleDateFormat("MM/dd/yyyy");
+        String today = date_formatter.format(date);
+
+        if (t_id.equals("zero")){
+            Log.d(TAG, "Making a new entry in the dB");
+            Log.d(TAG, "ID: "+t_id);
+            try {
+                note.put("title", "");
+                note.put("contents", note_body);
+                note.put("creation_time", today);
+                note.put("last_modified", today);
+                my_db.add_note(note);
+                old_note = note;
+                note = my_db.get_last_note();
+                t_id = note.has("id") ? note.getString("id"):"error";
+                if (t_id != "error"){
+                    current_note_json = note;
+                    current_id.setText(t_id); // Shows the new ID for the latest entry
+                }
+
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+        }else{
+            Log.d(TAG, "Updating a note in the dB");
+            Log.d(TAG, "ID: "+t_id);
+            int my_int_id = 0;
+            try{
+                my_int_id = Integer.parseInt(t_id);
+            }catch(NumberFormatException nfe) {
+                System.out.println("Could not parse " + nfe);
+            }
+            old_note = my_db.get_note(my_int_id);
+            try {
+                note.put("id", t_id);
+                note.put("title", "");
+                note.put("contents", note_body);
+                //note.put("creation_time", old_note.has("creation_time") ? old_note.getString("creation_time") : today);
+                note.put("creation_time", today);
+
+                note.put("last_modified", today);
+                try {
+                    my_db.update_note(note);
+                    current_note_json = note;
+                } catch (Error error) {
+                    error.printStackTrace();
+
+                }
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
+        all_notes = my_db.get_all_notes();
+        Log.d(TAG, all_notes.toString());
 
     }
+    /******************************** DB ? Note Function ***********************************/
+
 }//Main Activity
