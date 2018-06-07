@@ -140,6 +140,8 @@ public class sticky_note_db extends SQLiteOpenHelper {
 			Log.d("\n\nERROR: ", "get_note when reading cursor: "+error.getMessage()+"\n\n");
 			return null;
 		}
+		//Close the cursor
+		cursor.close();
     	return note;
 	}
 	/******************************** JSON Add Note Function ***********************************/
@@ -283,7 +285,8 @@ public class sticky_note_db extends SQLiteOpenHelper {
 					return null;
 				}
 			}
-
+		//Close the cursor
+		cursor.close();
 			return note;
 		}
 

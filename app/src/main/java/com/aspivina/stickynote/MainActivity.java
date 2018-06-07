@@ -43,10 +43,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView current_note_title;
     private TextView current_note_body;
     private EditText input_note;
+    private EditText input_title;
     private Button my_save_button;
-    private ImageView my_save_image;
-    private ImageView my_edit_image;
     private ImageView my_delete_image;
+    private ImageView my_edit_save_image;
     private Boolean my_toggle;
     private JSONArray all_notes;
     private sticky_note_db my_db;
@@ -168,8 +168,12 @@ public class MainActivity extends AppCompatActivity {
     /******************************** edit_save_click_button ***********************************/
     public void edit_save_click_button (View v){
         current_note_body = (TextView) findViewById(R.id.tv_current_note);
+        current_note_title= (TextView) findViewById(R.id.tv_current_note_title);
         input_note = (EditText) findViewById(R.id.et_edit_note);
-        my_delete_image = (ImageView) findViewById(R.id.im_edit_save);
+        input_title= (EditText) findViewById(R.id.et_edit_note_title);
+        my_edit_save_image = (ImageView) findViewById(R.id.im_edit_save);
+        my_delete_image = (ImageView) findViewById(R.id.im_delete);
+
         Context context = getApplicationContext();
         if (false == my_toggle) {
             Log.d(TAG,"edit_click_view: it clicks for editing");
@@ -178,9 +182,13 @@ public class MainActivity extends AppCompatActivity {
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
             current_note_body.setVisibility(View.INVISIBLE);
+            current_note_title.setVisibility(View.INVISIBLE);
             input_note.setVisibility(View.VISIBLE);
-            my_delete_image.setImageResource(R.drawable.save_t);
+            input_title.setVisibility(View.VISIBLE);
+            my_edit_save_image.setImageResource(R.drawable.save_t);
+            my_delete_image.setVisibility(View.INVISIBLE);
             input_note.setText(current_note_body.getText().toString());
+            input_title.setText(current_note_title.getText().toString());
             my_toggle = true;
         }else{
             Log.d(TAG,"edit_click_view: it clicks for saving");
@@ -190,9 +198,13 @@ public class MainActivity extends AppCompatActivity {
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
             current_note_body.setVisibility(View.VISIBLE);
+            current_note_title.setVisibility(View.VISIBLE);
             input_note.setVisibility(View.INVISIBLE);
-            my_delete_image.setImageResource(R.drawable.edit_t);
+            input_title.setVisibility(View.INVISIBLE);
+            my_edit_save_image.setImageResource(R.drawable.edit_t);
+            my_delete_image.setVisibility(View.VISIBLE);
             current_note_body.setText(input_note.getText().toString());
+            current_note_title.setText(input_title.getText().toString());
             my_toggle = false;
         }
     }
@@ -201,11 +213,13 @@ public class MainActivity extends AppCompatActivity {
     public void db_save_note_function(){
         current_note_body = (TextView) findViewById(R.id.tv_current_note);
         input_note = (EditText) findViewById(R.id.et_edit_note);
+        input_title= (EditText) findViewById(R.id.et_edit_note_title);
         JSONObject note = new JSONObject();
         JSONObject old_note = new JSONObject();
 
         my_db = new sticky_note_db(this);
         String note_body = input_note.getText().toString();
+        String note_title = input_title.getText().toString();
         current_id = (TextView) findViewById(R.id.tv_id_note);
         String t_id = current_id.getText().toString();
 
@@ -217,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "Making a new entry in the dB");
             Log.d(TAG, "ID: "+t_id);
             try {
-                note.put("title", "");
+                note.put("title", note_title);
                 note.put("contents", note_body);
                 note.put("creation_time", today);
                 note.put("last_modified", today);
@@ -229,7 +243,6 @@ public class MainActivity extends AppCompatActivity {
                     current_note_json = note;
                     current_id.setText(t_id); // Shows the new ID for the latest entry
                 }
-
             }catch (JSONException e){
                 e.printStackTrace();
             }
@@ -245,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
             old_note = my_db.get_note(my_int_id);
             try {
                 note.put("id", t_id);
-                note.put("title", "");
+                note.put("title", note_title);
                 note.put("contents", note_body);
                 //note.put("creation_time", old_note.has("creation_time") ? old_note.getString("creation_time") : today);
                 note.put("creation_time", today);
@@ -256,7 +269,6 @@ public class MainActivity extends AppCompatActivity {
                     current_note_json = note;
                 } catch (Error error) {
                     error.printStackTrace();
-
                 }
             }catch (JSONException e){
                 e.printStackTrace();
@@ -264,7 +276,6 @@ public class MainActivity extends AppCompatActivity {
         }
         all_notes = my_db.get_all_notes();
         Log.d(TAG, all_notes.toString());
-
     }
     /******************************** DB ? Note Function ***********************************/
 
