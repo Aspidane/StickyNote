@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private JSONObject current_note_json;
     private TextView current_id;
     private static final String TAG = MainActivity.class.getSimpleName();
+    private String my_dialog_result;
+
 
     /******************************** OnCreate Function ***********************************/
     @Override
@@ -277,6 +279,41 @@ public class MainActivity extends AppCompatActivity {
         all_notes = my_db.get_all_notes();
         Log.d(TAG, all_notes.toString());
     }
-    /******************************** DB ? Note Function ***********************************/
+    /******************************** DB Save Note Function  ***********************************/
+    /******************************** SAVE/DISCARD/CANCEL DIALOG Function ***********************************/
+    public void sdc_dialog () {
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("Buddy, you are editing!");
+        dialog.setMessage("Do you want to save changes to the current note?");
+
+        dialog.setPositiveButton("SAVE", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                my_dialog_result = "save";
+                dialog.cancel();
+            }
+        });
+        dialog.setNegativeButton("DISCARD", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                my_dialog_result = "discard";
+                dialog.cancel();
+            }
+        });
+        dialog.setNeutralButton("CANCEL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                my_dialog_result = "cancel";
+                dialog.cancel();
+            }
+        });
+        dialog.show();
+    }
+    /******************************** SAVE/DISCARD/CANCEL DIALOG Function ***********************************/
+    public void testing_button(View v){
+        sdc_dialog();
+    }
+    /******************************** SAVE/DISCARD/CANCEL DIALOG Function ***********************************/
 
 }//Main Activity
