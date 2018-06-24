@@ -10,6 +10,8 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,7 +31,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements note_list.ListItemClickListener {
     /* A constant to save and restore the current note that is being displayed*/
     private static final String CURRENT_NOTE_EXTRA = "current note";
     private TextView current_note_title;
@@ -41,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
     private ImageView my_delete_image;
     private Boolean my_toggle;
 
+    //RecyclerView setup
+    private RecyclerView m_note_list_rv;
+    private note_list m_note_list;
+
     private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
@@ -51,6 +57,20 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: it creates");
         read_note_function();
         my_toggle = false;
+
+        //RecyclerView setup
+
+        //Create teh RecyclerView
+        m_note_list_rv=(RecyclerView) findViewById(R.id.tv_note_list_rv);
+
+        //Set its layout
+        LinearLayoutManager layout_manager=new LinearLayoutManager(this);
+        m_note_list_rv.setLayoutManager(layout_manager);
+
+        //Create the note_list (adapter for the RecyclerView)
+        m_note_list=new note_list(5, this);
+
+        m_note_list_rv.setAdapter(m_note_list);
     }
 
     @Override
@@ -204,4 +224,27 @@ public void edit_save_click_button (View v){
         Log.d(TAG, "onWriting: it writes");
 
     }
-}//Main Activity
+
+    //Helper function for Rossi
+    public void db_load_note_function(String id) {
+        db_load_note(id);
+    };
+
+    //Loads a note
+    public void db_load_note(String id){
+        current_note_body = (TextView) findViewById(R.id.tv_current_note);
+        input_note = (EditText) findViewById(R.id.et_edit_note);
+
+        String string = input_note.getText().toString();
+        String filename = "current_note.txt";
+
+        Log.d(TAG, "onWriting: it writes");
+
+    }
+
+	@Override
+	public void onListItemClick(int clickedItemIndex) {
+
+	}
+
+} //Main Activity

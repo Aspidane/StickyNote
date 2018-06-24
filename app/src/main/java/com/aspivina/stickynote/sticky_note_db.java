@@ -15,10 +15,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/**
- * Created by Tyler on 3/8/2018.
- */
-
 public class sticky_note_db extends SQLiteOpenHelper {
 
     //Variables for the database's name and version number
@@ -117,7 +113,7 @@ public class sticky_note_db extends SQLiteOpenHelper {
 
 		//Android requires a String array so do it like this
 		String[] selection={ id };
-
+		
 		//Cursor to handle the results. Not sure why it's called a cursor, but it's what db.query returns.
 		Cursor cursor = db.query(
 				database_constants_contract.constants.TABLE_NAME,   // The table to query
@@ -153,6 +149,7 @@ public class sticky_note_db extends SQLiteOpenHelper {
 			note.put("creation_time", cursor.getString(creation_time_column));
 			note.put("last_modified", cursor.getString(last_modified_column));
 
+			//If there was an error, log it
 		} catch (JSONException error){
 			Log.d("\n\nERROR: ", "get_note when reading cursor: "+error.getMessage()+"\n\n");
 			return null;
