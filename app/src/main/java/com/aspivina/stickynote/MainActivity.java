@@ -36,6 +36,7 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -62,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements note_list.ListIte
     private static final String TAG = MainActivity.class.getSimpleName();
     private String my_dialog_result;
 
+    //Global variable Rossi wanted :)
+    private Entry rossi_global=new Entry(); //TODO DELETE THIS
 
     /******************************** OnCreate Function ***********************************/
     @Override
@@ -72,19 +75,22 @@ public class MainActivity extends AppCompatActivity implements note_list.ListIte
         read_note_function();
         my_toggle = false;
 
+
+        /*
         //RecyclerView setup
 
-        //Create teh RecyclerView
+        //Create the RecyclerView
         m_note_list_rv=(RecyclerView) findViewById(R.id.tv_note_list_rv);
 
         //Set its layout
         LinearLayoutManager layout_manager=new LinearLayoutManager(this);
-        m_note_list_rv.setLayoutManager(layout_manager);
+		m_note_list_rv.setLayoutManager(layout_manager);
 
         //Create the note_list (adapter for the RecyclerView)
         m_note_list=new note_list(5, this);
 
         m_note_list_rv.setAdapter(m_note_list);
+		*/
 
         my_db = new sticky_note_db(this);
         all_notes = my_db.get_all_notes();
@@ -119,6 +125,8 @@ public class MainActivity extends AppCompatActivity implements note_list.ListIte
     { super.onStart();
         Log.d(TAG, "onStart: it starts");
         read_note_function();
+
+		fake_function();
     }
     /********************************SAVE NOTE FUNCTION***********************************/
     public void save_note_function(){
@@ -360,5 +368,58 @@ public class MainActivity extends AppCompatActivity implements note_list.ListIte
         sdc_dialog();
     }
     /******************************** SAVE/DISCARD/CANCEL DIALOG Function ***********************************/
+
+	public class Entry{
+
+		//Fields
+		private int id;
+		private String title;
+		private String contents;
+		private String creation_time;
+		private String last_modified;
+
+		//If something is selected or not
+		public boolean selected;
+
+		//
+		public int get_id(){ return id; }
+		public String get_title(){ return title; }
+		public String get_contents(){ return contents; }
+		public String get_creation_time(){ return creation_time; }
+		public String get_last_modified(){ return last_modified; }
+
+		public Entry(){
+			id=-1;
+			title="";
+			contents="";
+			creation_time="";
+			last_modified="";
+		}
+
+	}
+
+    public void fake_function(){
+    	//rossi_global=new Entry();
+
+		ArrayList<Entry> entries=new ArrayList<Entry>();
+
+		for(int i=0; i<5;i++) {
+
+			entries.add(rossi_global);
+		}
+
+		Log.d(TAG, "size: "+entries.size());
+
+		for(int i=0;i<entries.size();i++){
+			Log.d(TAG, "Entry "+i+" id: "+entries.get(i).get_id());
+		}
+
+	};
+
+	public static Entry get_fake_data(){
+
+
+		return rossi_global;
+	}
 
 }//Main Activity

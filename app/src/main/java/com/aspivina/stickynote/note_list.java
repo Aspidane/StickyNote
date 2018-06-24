@@ -19,10 +19,6 @@ import java.util.List;
 
 import com.aspivina.stickynote.MainActivity;
 
-/**
- * Created by Tyler on 12/3/2017.
- */
-
 public class note_list extends RecyclerView.Adapter<note_list.note_view_holder> {
 
 	//The entries of the notes
@@ -37,15 +33,35 @@ public class note_list extends RecyclerView.Adapter<note_list.note_view_holder> 
 	//Index of the current entry
 	private int m_adapter_index;
 
+	//Number of items
+	private int m_item_count;
+
 	//Listener that helps the main activity interact wwith this (as I understand it)
 	final private ListItemClickListener m_on_click_listener;
 
+	/*
 	public note_list(int itemCount, ListItemClickListener listener){
+
+		entries=new ArrayList<Entry>();
 
 		m_on_click_listener=listener;
 
 		view_holder_count=0;
 
+		m_item_count=itemCount;
+
+	}
+	*/
+
+	public note_list(int itemCount, ArrayList<Entry> los_Rossi, ListItemClickListener listener){
+
+		entries=los_Rossi;
+
+		m_on_click_listener=listener;
+
+		view_holder_count=0;
+
+		m_item_count=itemCount;
 	}
 
 	/*
@@ -93,19 +109,31 @@ public class note_list extends RecyclerView.Adapter<note_list.note_view_holder> 
 	}
 
 	class Entry{
+
+		//Fields
 		private int id;
 		private String title;
 		private String contents;
 		private String creation_time;
 		private String last_modified;
 
+		//If something is selected or not
 		public boolean selected;
 
+		//
 		public int get_id(){ return id; }
 		public String get_title(){ return title; }
 		public String get_contents(){ return contents; }
 		public String get_creation_time(){ return creation_time; }
 		public String get_last_modified(){ return last_modified; }
+
+		public Entry(){
+			id=-1;
+			title="";
+			contents="";
+			creation_time="";
+			last_modified="";
+		}
 
 	}
 

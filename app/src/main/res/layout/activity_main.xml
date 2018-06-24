@@ -10,14 +10,16 @@
     android:id="@+id/main_fragment"
     android:background="#00ffffff">
 
+    <!--
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/tv_note_list_rv"
-        android:layout_width="match_parent"
+        android:id="@+id/rv_note_list"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:textSize="20sp"
         android:text=""
         />
+    -->
 
     <fragment android:name="com.aspivina.stickynote.edit_note_fragment"
         android:layout_width="match_parent"
@@ -26,7 +28,7 @@
         android:layout_weight="1"
         />
 
-    <fragment android:name="com.aspivina.stickynote.note_list"
+    <fragment android:name="com.aspivina.stickynote.note_list_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/R.id.note_list"
