@@ -4,7 +4,6 @@
 <!--    <string name="edit_note">Edit Note</string> -->
     <string name="tool_bar_help">Help!</string>
     <string name="tool_bar_about">About</string>
-
     <string name="empty_note">Fill me!</string>
 
 </resources>
