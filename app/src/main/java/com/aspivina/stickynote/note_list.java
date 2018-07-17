@@ -39,7 +39,7 @@ public class note_list extends RecyclerView.Adapter<note_list.note_view_holder> 
 	//Listener that helps the main activity interact wwith this (as I understand it)
 	final private ListItemClickListener m_on_click_listener;
 
-	/*
+
 	public note_list(int itemCount, ListItemClickListener listener){
 
 		entries=new ArrayList<Entry>();
@@ -51,7 +51,7 @@ public class note_list extends RecyclerView.Adapter<note_list.note_view_holder> 
 		m_item_count=itemCount;
 
 	}
-	*/
+	/*
 
 	public note_list(int itemCount, ArrayList<Entry> los_Rossi, ListItemClickListener listener){
 
@@ -63,7 +63,7 @@ public class note_list extends RecyclerView.Adapter<note_list.note_view_holder> 
 
 		m_item_count=itemCount;
 	}
-
+*/
 	/*
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

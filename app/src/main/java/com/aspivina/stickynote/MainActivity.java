@@ -416,7 +416,7 @@ public class MainActivity extends AppCompatActivity implements note_list.ListIte
 
 	};
 
-	public static Entry get_fake_data(){
+	public  Entry get_fake_data(){
 
 
 		return rossi_global;
