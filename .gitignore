@@ -55,3 +55,5 @@ fabric.properties
 /captures
 .externalNativeBuild
 
+### Get rid of gradle stuff
+.gradle/3.3

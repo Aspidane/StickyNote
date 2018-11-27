@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements note_list.ListIte
 
         Context context = getApplicationContext();
         if (false == my_toggle) {
-            Log.d(TAG,"edit_click_view: it clicks for editing");
+            Log.d(TAG,"edit_click_view: now in editing mode");
             CharSequence text = "editing";
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(context, text, duration);
@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements note_list.ListIte
             input_title.setText(current_note_title.getText().toString());
             my_toggle = true;
         }else{
-            Log.d(TAG,"edit_click_view: it clicks for saving");
+            Log.d(TAG,"edit_click_view: now in saving mode");
             CharSequence text = "saved";
             db_save_note_function();
             int duration = Toast.LENGTH_SHORT;
