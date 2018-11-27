@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements note_list.ListIte
     private String my_dialog_result;
 
     //Global variable Rossi wanted :)
-    private Entry rossi_global=new Entry(); //TODO DELETE THIS
+    private ArrayList<Entry> rossi_global=new ArrayList<Entry>(); //TODO DELETE THIS
 
     /******************************** OnCreate Function ***********************************/
     @Override
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements note_list.ListIte
         Log.d(TAG, "onStart: it starts");
         read_note_function();
 
-		fake_function();
+		//fake_function();
     }
     /********************************SAVE NOTE FUNCTION***********************************/
     public void save_note_function(){
@@ -313,32 +313,36 @@ public class MainActivity extends AppCompatActivity implements note_list.ListIte
     /******************************** SAVE/DISCARD/CANCEL DIALOG Function ***********************************/
     public void sdc_dialog () {
 
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("Buddy, you are editing!");
         dialog.setMessage("Do you want to save changes to the current note?");
 
         dialog.setPositiveButton("SAVE", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                my_dialog_result = "save";
+				my_dialog_result = "save";
                 dialog.cancel();
             }
         });
+
         dialog.setNegativeButton("DISCARD", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                my_dialog_result = "discard";
+				my_dialog_result = "discard";
                 dialog.cancel();
             }
         });
+
         dialog.setNeutralButton("CANCEL", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                my_dialog_result = "cancel";
+				my_dialog_result = "cancel";
                 dialog.cancel();
             }
         });
         dialog.show();
+
+        return;
     }
 
     //Helper function for Rossi
@@ -401,25 +405,26 @@ public class MainActivity extends AppCompatActivity implements note_list.ListIte
     public void fake_function(){
     	//rossi_global=new Entry();
 
-		ArrayList<Entry> entries=new ArrayList<Entry>();
-
 		for(int i=0; i<5;i++) {
 
-			entries.add(rossi_global);
+			rossi_global.add(new Entry());
 		}
 
-		Log.d(TAG, "size: "+entries.size());
+		Log.d(TAG, "size: "+rossi_global.size());
 
-		for(int i=0;i<entries.size();i++){
-			Log.d(TAG, "Entry "+i+" id: "+entries.get(i).get_id());
+		for(int i=0;i<rossi_global.size();i++){
+			Log.d(TAG, "Entry "+i+" id: "+rossi_global.get(i).get_id());
 		}
 
 	};
 
-	public  Entry get_fake_data(){
+
+	public ArrayList<Entry> get_fake_data(){
 
 
 		return rossi_global;
 	}
+
+
 
 }//Main Activity
