@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/tv_item_number"
+            android:layout_width="100dp"
+            android:layout_height="20sp"
+            android:layout_gravity="center_vertical|start"
+            android:fontFamily="monospace"
+            android:textStyle="bold|italic"
+            android:textSize="14sp"
+            android:textAlignment="gravity"
+            tools:text="#42" />
+
+        <TextView
+            android:id="@+id/tv_view_holder_index"
+            android:layout_width="100dp"
+            android:layout_height="20sp"
+            android:layout_gravity="center_vertical|end"
+            android:fontFamily="monospace"
+            android:textColor="#000"
+            android:textSize="16sp"
+            tools:text="ViewHolder instance: 7" />
+    </FrameLayout>
+
+</android.support.constraint.ConstraintLayout>
