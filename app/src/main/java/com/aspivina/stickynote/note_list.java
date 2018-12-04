@@ -47,21 +47,6 @@ public class note_list extends RecyclerView.Adapter<note_list.note_view_holder> 
 		m_item_count=itemCount;
 	}
 
-	/*
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		//super.onCreate(savedInstanceState);
-		//setContentView(R.layout.note_list_layout);
-	}
-
-    @Override
-    public note_view_holder onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.note_list_fragment_layout, container, false);
-        return null;
-    }
-    */
-
     public note_view_holder onCreateViewHolder(ViewGroup viewGroup, int viewType){
     	Context context=viewGroup.getContext();
     	int layout_id= R.layout.number_list_item;
