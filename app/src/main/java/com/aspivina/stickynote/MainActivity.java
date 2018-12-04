@@ -42,7 +42,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity implements note_list.ListItemClickListener {
+public class MainActivity extends AppCompatActivity
+        implements note_list.ListItemClickListener {
     /* A constant to save and restore the current note that is being displayed*/
     private static final String CURRENT_NOTE_EXTRA = "current note";
     private TextView current_note_title;
@@ -69,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements note_list.ListIte
     private static final String TAG = MainActivity.class.getSimpleName();
     private String my_dialog_result;
 
-    private ArrayList<note_list.Entry> rossi_global=new ArrayList<note_list.Entry>(); //TODO DELETE THIS
 
     /******************************** OnCreate Function ***********************************/
     @Override
@@ -84,13 +84,15 @@ public class MainActivity extends AppCompatActivity implements note_list.ListIte
         all_notes = my_db.get_all_notes();
         Log.d(TAG, "all_notes: \n"+all_notes.toString());
 
-        fake_function();
         m_note_list_rv = (RecyclerView) findViewById(R.id.rv_note_list);
         layout_manager = new LinearLayoutManager(this);
         m_note_list_rv.setLayoutManager(layout_manager);
-        m_note_list=new note_list(15, get_fake_data(), this);
-        //mNumbersList.setAdapter(mAdapter); --Rossi version
+        m_note_list=new note_list(10, this);
         m_note_list_rv.setAdapter(m_note_list);
+
+        my_tv= (TextView) findViewById(R.id.textView1);
+            my_tv.setText("peip");
+
     }
     /******************************** onListItemClick Function ***********************************/
     @Override
@@ -105,31 +107,13 @@ public class MainActivity extends AppCompatActivity implements note_list.ListIte
         mToast.show();
         rv_current_id= clickedItemIndex;
 
-        my_tv= (TextView) findViewById(R.id.tv_id_note);
+        my_tv= (TextView) findViewById(R.id.textView1);
         if(my_tv != null){
             my_tv.setText("peip");
         }else{
             Log.d(TAG, "Item #" + my_tv.getText() + " clicked.");
         }
     }
-    /******************************** fake_function Function ***********************************/
-    public void fake_function(){
-        Log.d(TAG, " in note_list_fragment");
-        for(int i=0; i<15;i++) {
-            rossi_global.add(new note_list.Entry());
-            rossi_global.get(i).set_id(i);
-        }
-        Log.d(TAG, "size: "+rossi_global.size());
-        for(int i=0;i<rossi_global.size();i++){
-            Log.d(TAG, "Entry "+i+" id: "+rossi_global.get(i).get_id());
-        }
-    };
-    /******************************** get_fake_data Function ***********************************/
-
-    public ArrayList<note_list.Entry> get_fake_data(){
-        return rossi_global;
-    }
-
     /******************************** OnStop Function ***********************************/
     @Override
     protected void onStop()
@@ -396,30 +380,7 @@ public class MainActivity extends AppCompatActivity implements note_list.ListIte
         sdc_dialog();
     }
     /******************************** SAVE/DISCARD/CANCEL DIALOG Function ***********************************/
-	public class Entry{
-		//Fields
-		private int id;
-		private String title;
-		private String contents;
-		private String creation_time;
-		private String last_modified;
-		//If something is selected or not
-		public boolean selected;
-		//
-		public int get_id(){ return id; }
-		public String get_title(){ return title; }
-		public String get_contents(){ return contents; }
-		public String get_creation_time(){ return creation_time; }
-		public String get_last_modified(){ return last_modified; }
 
-		public Entry(){
-			id=-1;
-			title="";
-			contents="";
-			creation_time="";
-			last_modified="";
-		}
-	}
 
 
 }//Main Activity
