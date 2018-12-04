@@ -63,9 +63,6 @@ public class MainActivity extends AppCompatActivity implements note_list.ListIte
     private static final String TAG = MainActivity.class.getSimpleName();
     private String my_dialog_result;
 
-    //Global variable Rossi wanted :)
-    private ArrayList<Entry> rossi_global=new ArrayList<Entry>(); //TODO DELETE THIS
-
     /******************************** OnCreate Function ***********************************/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -373,7 +370,7 @@ public class MainActivity extends AppCompatActivity implements note_list.ListIte
     }
     /******************************** SAVE/DISCARD/CANCEL DIALOG Function ***********************************/
 
-	public class Entry{
+	public class Entry {
 
 		//Fields
 		private int id;
@@ -386,45 +383,34 @@ public class MainActivity extends AppCompatActivity implements note_list.ListIte
 		public boolean selected;
 
 		//
-		public int get_id(){ return id; }
-		public String get_title(){ return title; }
-		public String get_contents(){ return contents; }
-		public String get_creation_time(){ return creation_time; }
-		public String get_last_modified(){ return last_modified; }
+		public int get_id() {
+			return id;
+		}
 
-		public Entry(){
-			id=-1;
-			title="";
-			contents="";
-			creation_time="";
-			last_modified="";
+		public String get_title() {
+			return title;
+		}
+
+		public String get_contents() {
+			return contents;
+		}
+
+		public String get_creation_time() {
+			return creation_time;
+		}
+
+		public String get_last_modified() {
+			return last_modified;
+		}
+
+		public Entry() {
+			id = -1;
+			title = "";
+			contents = "";
+			creation_time = "";
+			last_modified = "";
 		}
 
 	}
-
-    public void fake_function(){
-    	//rossi_global=new Entry();
-
-		for(int i=0; i<5;i++) {
-
-			rossi_global.add(new Entry());
-		}
-
-		Log.d(TAG, "size: "+rossi_global.size());
-
-		for(int i=0;i<rossi_global.size();i++){
-			Log.d(TAG, "Entry "+i+" id: "+rossi_global.get(i).get_id());
-		}
-
-	};
-
-
-	public ArrayList<Entry> get_fake_data(){
-
-
-		return rossi_global;
-	}
-
-
 
 }//Main Activity

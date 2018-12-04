@@ -30,7 +30,7 @@ public class note_list extends RecyclerView.Adapter<note_list.note_view_holder> 
 	private int m_adapter_index;
 	//Number of items
 	private int m_item_count;
-	//Listener that helps the main activity interact wwith this (as I understand it)
+	//Listener that helps the main activity interact with this (as I understand it)
 	final private ListItemClickListener m_on_click_listener;
 /*
 	public note_list(int itemCount, ListItemClickListener listener){

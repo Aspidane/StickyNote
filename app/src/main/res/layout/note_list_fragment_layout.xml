@@ -12,6 +12,16 @@
         android:layout_centerVertical="true"
         android:text="Note List" />
 
+    <TextView
+        android:id="@+id/tv_empty_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:textSize="20sp"
+        android:text="There are currently no saved notes. They'll appear here when you make one!"
+        android:visibility="invisible"
+        />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_note_list"
         android:layout_width="match_parent"
@@ -19,6 +29,7 @@
         android:padding="16dp"
         android:textSize="20sp"
         android:text=""
+        android:visibility="visible"
         />
 
 </LinearLayout>
