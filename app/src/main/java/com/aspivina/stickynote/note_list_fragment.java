@@ -1,6 +1,7 @@
 package com.aspivina.stickynote;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.aspivina.stickynote.note_list.Entry;
 
 import java.util.ArrayList;
@@ -19,9 +23,10 @@ public class note_list_fragment extends Fragment implements note_list.ListItemCl
 	//RecyclerView setup
 	private RecyclerView m_note_list_rv;
 	private note_list m_note_list;
-
+	private Toast mToast;
 	LinearLayoutManager layout_manager;
-
+	private int current_id;
+	private TextView my_tv;
 	public class rossi_random{
 		//Fields
 		private int id;
@@ -70,7 +75,25 @@ public class note_list_fragment extends Fragment implements note_list.ListItemCl
 
 	@Override
 	public void onListItemClick(int clickedItemIndex) {
+		Context context = m_note_list_rv.getContext(); //needed the current view to make the toast work
+		Log.d(TAG, "Item #" + clickedItemIndex + " clicked.");
+		if (mToast != null) {
+			mToast.cancel();
+		}
+		Log.d(TAG, "Item #" + clickedItemIndex + " clicked.");
+		String toastMessage = "Id : " + clickedItemIndex + ".";
+		mToast = Toast.makeText(context, toastMessage, Toast.LENGTH_LONG);
+		mToast.show();
+		current_id= clickedItemIndex;
 
+		my_tv= (TextView) getView().findViewById(R.id.tv_id_note);
+		if(my_tv != null){
+		my_tv.setText("peip");}else{
+			Log.d(TAG, "Item #" + getView().findViewById(R.id.tv_id_note) + " clicked.");
+		}
+	}
+	public int n_current_id(){
+		return current_id;
 	}
 
 	private ArrayList<Entry> rossi_global=new ArrayList<Entry>(); //TODO DELETE THIS

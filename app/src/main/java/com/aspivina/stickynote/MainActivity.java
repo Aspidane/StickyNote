@@ -40,7 +40,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity implements note_list.ListItemClickListener {
+public class MainActivity extends AppCompatActivity {
     /* A constant to save and restore the current note that is being displayed*/
     private static final String CURRENT_NOTE_EXTRA = "current note";
     private TextView current_note_title;
@@ -74,23 +74,6 @@ public class MainActivity extends AppCompatActivity implements note_list.ListIte
         Log.d(TAG, "onCreate: it creates");
         read_note_function();
         my_toggle = false;
-
-
-        /*
-        //RecyclerView setup
-
-        //Create the RecyclerView
-        m_note_list_rv=(RecyclerView) findViewById(R.id.tv_note_list_rv);
-
-        //Set its layout
-        LinearLayoutManager layout_manager=new LinearLayoutManager(this);
-		m_note_list_rv.setLayoutManager(layout_manager);
-
-        //Create the note_list (adapter for the RecyclerView)
-        m_note_list=new note_list(5, this);
-
-        m_note_list_rv.setAdapter(m_note_list);
-		*/
 
         my_db = new sticky_note_db(this);
         all_notes = my_db.get_all_notes();
@@ -362,14 +345,13 @@ public class MainActivity extends AppCompatActivity implements note_list.ListIte
 
     }
 
-	@Override
-	public void onListItemClick(int clickedItemIndex) {
 
-	}
 
     /******************************** SAVE/DISCARD/CANCEL DIALOG Function ***********************************/
     public void testing_button(View v){
         sdc_dialog();
+
+
     }
     /******************************** SAVE/DISCARD/CANCEL DIALOG Function ***********************************/
 
